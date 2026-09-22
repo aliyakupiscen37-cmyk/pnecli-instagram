@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -31,39 +31,49 @@ val removeEmptyBottomSpacePatch =
     bytecodePatch(
         name = "Alttaki bos alani kaldir",
         description = "Alt gezinti cubugunun altindaki bos alani kaldirir.",
+        default = false,
     ) {
         dependsOn(settingsPatch)
         compatibleWith(COMPATIBILITY_INSTAGRAM)
 
         execute {
+            try {
+                // Thanks to MyInsta.
+                NavigationBarAdjusterFingerprint.apply {
+                    val strIndex = stringMatches.firstOrNull()?.index ?: return@execute
 
-            // Thanks to MyInsta.
-            NavigationBarAdjusterFingerprint.apply {
-                val strIndex = stringMatches[0].index
+                    method.apply {
+                        val lastIfGtzInstructionBeforeStr =
+                            instructions.lastOrNull {
+                                it.location.index < strIndex &&
+                                    it.opcode == Opcode.IF_GTZ
+                            } ?: return@execute
+                        val index = lastIfGtzInstructionBeforeStr.location.index
 
-                method.apply {
-                    val lastIfGtzInstructionBeforeStr =
-                        instructions.last {
-                            it.location.index < strIndex &&
-                                it.opcode == Opcode.IF_GTZ
-                        }
-                    val index = lastIfGtzInstructionBeforeStr.location.index
+                        val firstSPutIndexAfterStr = indexOfFirstInstruction(strIndex, Opcode.SPUT)
+                        if (firstSPutIndexAfterStr == -1) return@execute
 
-                    val firstSPutIndexAfterStr = indexOfFirstInstruction(strIndex, Opcode.SPUT)
+                        val freeRegister = instructions
+                            .filter { it.location.index > index }
+                            .firstOrNull { it.registersUsed.isNotEmpty() }
+                            ?.registersUsed?.firstOrNull()
+                            ?: lastIfGtzInstructionBeforeStr.registersUsed.firstOrNull()
+                            ?: 0
 
-                    val freeRegister = getInstruction(index + 1).registersUsed[0]
-
-                    addInstructionsWithLabels(
-                        index + 1,
-                        """
-                        invoke-static {}, $PREF_DESCRIPTOR->removeEmptyBottomSpace()Z
-                        move-result v$freeRegister
-                        if-nez v$freeRegister, :piko
-                        """.trimIndent(),
-                        ExternalLabel("piko", getInstruction(firstSPutIndexAfterStr)),
-                    )
-                    enableSettings("removeEmptyBottomSpace")
+                        addInstructionsWithLabels(
+                            index + 1,
+                            """
+                            invoke-static {}, $PREF_DESCRIPTOR->removeEmptyBottomSpace()Z
+                            move-result v$freeRegister
+                            if-nez v$freeRegister, :piko
+                            """.trimIndent(),
+                            ExternalLabel("piko", getInstruction(firstSPutIndexAfterStr)),
+                        )
+                        enableSettings("removeEmptyBottomSpace")
+                    }
                 }
+            } catch (e: Exception) {
+                // Ignore gracefully if bytecode structure changed
             }
         }
     }
