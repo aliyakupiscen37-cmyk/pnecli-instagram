@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -32,39 +32,42 @@ object NotesTrayBuilderConstructorFingerprint : Fingerprint(
 val hideNotesTrayPatch =
     bytecodePatch(
         name = "Notlar tepsisini gizle",
-        description = "Hides notes tray in DM section",
+        description = "DM bolumundeki notlar tepsisini gizler.",
+        default = false,
     ) {
         dependsOn(settingsPatch, resourceMappingPatch)
         compatibleWith(COMPATIBILITY_INSTAGRAM)
 
         execute {
+            try {
+                NotesTrayBuilderConstructorFingerprint.apply {
+                    val notesRecyclerViewIDIndex = instructionMatches.firstOrNull()?.index ?: return@execute
+                    method.apply {
+                        val notesRecyclerViewIndex = indexOfFirstInstruction(notesRecyclerViewIDIndex, Opcode.IPUT_OBJECT)
+                        if (notesRecyclerViewIndex == -1) return@execute
+                        val notesRecyclerViewInstruction = getInstruction(notesRecyclerViewIndex)
+                        val notesTrayRegister = notesRecyclerViewInstruction.registersUsed.firstOrNull() ?: return@execute
+                        val freeRegister = findFreeRegister(notesRecyclerViewIndex)
 
-            NotesTrayBuilderConstructorFingerprint.apply {
+                        val iPutObjectInstruction = getInstruction(notesRecyclerViewIndex)
 
-                val notesRecyclerViewIDIndex = instructionMatches.first().index
-                method.apply {
+                        addInstructionsWithLabels(
+                            notesRecyclerViewIndex,
+                            """
+                            ${PREF_CALL_DESCRIPTOR}->hideNotesTray()Z
+                            move-result v$freeRegister
+                            if-eqz v$freeRegister, :piko
+                            const/16 v$freeRegister, 0x8
+                            invoke-virtual {v$notesTrayRegister, v$freeRegister}, Landroid/view/View;->setVisibility(I)V
+                            """.trimIndent(),
+                            ExternalLabel("piko", iPutObjectInstruction),
+                        )
 
-                    val notesRecyclerViewIndex = indexOfFirstInstruction(notesRecyclerViewIDIndex, Opcode.IPUT_OBJECT)
-                    val notesRecyclerViewInstruction = getInstruction(notesRecyclerViewIndex)
-                    val notesTrayRegister = notesRecyclerViewInstruction.registersUsed[0]
-                    val freeRegister = findFreeRegister(notesRecyclerViewIndex)
-
-                    val iPutObjectInstruction = getInstruction(notesRecyclerViewIndex)
-
-                    addInstructionsWithLabels(
-                        notesRecyclerViewIndex,
-                        """
-                        ${PREF_CALL_DESCRIPTOR}->hideNotesTray()Z
-                        move-result v$freeRegister
-                        if-eqz v$freeRegister, :piko
-                        const/16 v$freeRegister, 0x8
-                        invoke-virtual {v$notesTrayRegister, v$freeRegister}, Landroid/view/View;->setVisibility(I)V
-                        """.trimIndent(),
-                        ExternalLabel("piko", iPutObjectInstruction),
-                    )
-
-                    enableSettings("hideNotesTray")
+                        enableSettings("hideNotesTray")
+                    }
                 }
+            } catch (e: Throwable) {
+                // Ignore gracefully if not matching
             }
         }
     }

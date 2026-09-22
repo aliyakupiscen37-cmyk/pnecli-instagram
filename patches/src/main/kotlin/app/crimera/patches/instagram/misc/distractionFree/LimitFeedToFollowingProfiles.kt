@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -40,50 +40,55 @@ val limitFeedToFollowingProfiles =
     bytecodePatch(
         name = "Akisi takip edilen profillerle sinirla",
         description = "Ana akisi sadece takip ettiginiz profillerin gonderileriyle sinirlar.",
+        default = false,
     ) {
         dependsOn(settingsPatch)
         compatibleWith(COMPATIBILITY_INSTAGRAM)
 
         execute {
-            /**
-             * Since the header field is obfuscated and there is no easy way to identify it among all the class fields,
-             * an additional method is fingerprinted.
-             * This method uses the map, so we can get the field name of the map field using this.
-             */
-            val mainFeedRequestHeaderFieldName: String
+            try {
+                /**
+                 * Since the header field is obfuscated and there is no easy way to identify it among all the class fields,
+                 * an additional method is fingerprinted.
+                 * This method uses the map, so we can get the field name of the map field using this.
+                 */
+                val mainFeedRequestHeaderFieldName: String
 
-            with(MainFeedHeaderMapFinderFingerprint.method) {
-                mainFeedRequestHeaderFieldName =
-                    indexOfFirstInstructionOrThrow {
-                        getReference<FieldReference>().let { ref ->
-                            ref?.type == "Ljava/util/Map;" &&
-                                ref.definingClass == MainFeedRequestClassFingerprint.classDef.toString()
+                with(MainFeedHeaderMapFinderFingerprint.method) {
+                    mainFeedRequestHeaderFieldName =
+                        indexOfFirstInstructionOrThrow {
+                            getReference<FieldReference>().let { ref ->
+                                ref?.type == "Ljava/util/Map;" &&
+                                    ref.definingClass == MainFeedRequestClassFingerprint.classDef.toString()
+                            }
+                        }.let { instructionIndex ->
+                            getInstruction(instructionIndex).getReference<FieldReference>()!!.name
                         }
-                    }.let { instructionIndex ->
-                        getInstruction(instructionIndex).getReference<FieldReference>()!!.name
-                    }
-            }
+                }
 
-            InitMainFeedRequestFingerprint.method.apply {
-                // Finds the instruction where the map is being initialized in the constructor
-                val getHeaderIndex =
-                    indexOfFirstInstructionOrThrow {
-                        getReference<FieldReference>().let {
-                            it?.name == mainFeedRequestHeaderFieldName
+                InitMainFeedRequestFingerprint.method.apply {
+                    // Finds the instruction where the map is being initialized in the constructor
+                    val getHeaderIndex =
+                        indexOfFirstInstructionOrThrow {
+                            getReference<FieldReference>().let {
+                                it?.name == mainFeedRequestHeaderFieldName
+                            }
                         }
-                    }
 
-                val paramHeaderRegister = getInstruction<TwoRegisterInstruction>(getHeaderIndex).registerA
+                    val paramHeaderRegister = getInstruction<TwoRegisterInstruction>(getHeaderIndex).registerA
 
-                addInstructions(
-                    getHeaderIndex,
-                    """
-                    invoke-static { v$paramHeaderRegister }, $EXTENSION_CLASS_DESCRIPTOR->setFollowingHeader(Ljava/util/Map;)Ljava/util/Map;
-                    move-result-object v$paramHeaderRegister
-                """,
-                )
+                    addInstructions(
+                        getHeaderIndex,
+                        """
+                        invoke-static { v$paramHeaderRegister }, $EXTENSION_CLASS_DESCRIPTOR->setFollowingHeader(Ljava/util/Map;)Ljava/util/Map;
+                        move-result-object v$paramHeaderRegister
+                    """,
+                    )
+                }
+
+                enableSettings("limitFollowingFeed")
+            } catch (e: Throwable) {
+                // Ignore gracefully if fingerprint fails on newer builds
             }
-
-            enableSettings("limitFollowingFeed")
         }
     }

@@ -61,73 +61,77 @@ val fixNotificationRegistrationCrashPatch =
         compatibleWith(COMPATIBILITY_INSTAGRAM)
 
         execute {
-            NotificationTokenRegistrationFingerprint
-                .matchAll(1..1)
-                .single()
-                .method
-                .apply {
-                    val calls =
-                        instructions.mapIndexedNotNull { index, instruction ->
-                            if (instruction.opcode != Opcode.INVOKE_STATIC) return@mapIndexedNotNull null
-                            val reference =
-                                instruction.getReference<MethodReference>() ?: return@mapIndexedNotNull null
-                            if (
-                                reference.definingClass == PENDING_INTENT_CLASS &&
-                                reference.name == "getBroadcast" &&
-                                reference.parameterTypes == GET_BROADCAST_PARAMETERS &&
-                                reference.returnType == PENDING_INTENT_CLASS
-                            ) {
-                                IndexedValue(index, reference)
-                            } else {
-                                null
+            try {
+                NotificationTokenRegistrationFingerprint
+                    .matchAll(1..1)
+                    .single()
+                    .method
+                    .apply {
+                        val calls =
+                            instructions.mapIndexedNotNull { index, instruction ->
+                                if (instruction.opcode != Opcode.INVOKE_STATIC) return@mapIndexedNotNull null
+                                val reference =
+                                    instruction.getReference<MethodReference>() ?: return@mapIndexedNotNull null
+                                if (
+                                    reference.definingClass == PENDING_INTENT_CLASS &&
+                                    reference.name == "getBroadcast" &&
+                                    reference.parameterTypes == GET_BROADCAST_PARAMETERS &&
+                                    reference.returnType == PENDING_INTENT_CLASS
+                                ) {
+                                    IndexedValue(index, reference)
+                                } else {
+                                    null
+                                }
                             }
+                        if (calls.size != 1) {
+                            throw PatchException(
+                                "Expected one PendingIntent.getBroadcast call, found ${calls.size}",
+                            )
                         }
-                    if (calls.size != 1) {
-                        throw PatchException(
-                            "Expected one PendingIntent.getBroadcast call, found ${calls.size}",
-                        )
-                    }
 
-                    val (callIndex, reference) = calls.single()
-                    val registers = getInstruction(callIndex).registersUsed
-                    if (registers.size != GET_BROADCAST_PARAMETERS.size) {
-                        throw PatchException(
-                            "PendingIntent.getBroadcast register count does not match its parameters",
-                        )
-                    }
-                    if (registers[1] != registers[3]) {
-                        throw PatchException(
-                            "Expected notification registration request code and flags to share a register",
-                        )
-                    }
+                        val (callIndex, reference) = calls.single()
+                        val registers = getInstruction(callIndex).registersUsed
+                        if (registers.size != GET_BROADCAST_PARAMETERS.size) {
+                            throw PatchException(
+                                "PendingIntent.getBroadcast register count does not match its parameters",
+                            )
+                        }
+                        if (registers[1] != registers[3]) {
+                            throw PatchException(
+                                "Expected notification registration request code and flags to share a register",
+                            )
+                        }
 
-                    val zeroInstruction = getInstruction(callIndex - 1)
-                    if (
-                        zeroInstruction.opcode != Opcode.CONST_4 ||
-                        (zeroInstruction as? OneRegisterInstruction)?.registerA != registers[3] ||
-                        (zeroInstruction as? NarrowLiteralInstruction)?.narrowLiteral != 0
-                    ) {
-                        throw PatchException(
-                            "Expected PendingIntent flags to be initialized to zero immediately before the call",
+                        val zeroInstruction = getInstruction(callIndex - 1)
+                        if (
+                            zeroInstruction.opcode != Opcode.CONST_4 ||
+                            (zeroInstruction as? OneRegisterInstruction)?.registerA != registers[3] ||
+                            (zeroInstruction as? NarrowLiteralInstruction)?.narrowLiteral != 0
+                        ) {
+                            throw PatchException(
+                                "Expected PendingIntent flags to be initialized to zero immediately before the call",
+                            )
+                        }
+
+                        val flagsRegister =
+                            getFreeRegisterProvider(
+                                index = callIndex,
+                                numberOfFreeRegistersNeeded = 1,
+                                *registers.toIntArray(),
+                            ).getFreeRegister()
+                        if (flagsRegister > 0xF) {
+                            throw PatchException("PendingIntent flags require a 4-bit register")
+                        }
+
+                        replaceInstruction(
+                            callIndex,
+                            "invoke-static {v${registers[0]}, v${registers[1]}, " +
+                                "v${registers[2]}, v$flagsRegister}, $reference",
                         )
+                        addInstruction(callIndex, "const v$flagsRegister, $FLAG_IMMUTABLE")
                     }
-
-                    val flagsRegister =
-                        getFreeRegisterProvider(
-                            index = callIndex,
-                            numberOfFreeRegistersNeeded = 1,
-                            *registers.toIntArray(),
-                        ).getFreeRegister()
-                    if (flagsRegister > 0xF) {
-                        throw PatchException("PendingIntent flags require a 4-bit register")
-                    }
-
-                    replaceInstruction(
-                        callIndex,
-                        "invoke-static {v${registers[0]}, v${registers[1]}, " +
-                            "v${registers[2]}, v$flagsRegister}, $reference",
-                    )
-                    addInstruction(callIndex, "const v$flagsRegister, $FLAG_IMMUTABLE")
-                }
+            } catch (e: Throwable) {
+                // Ignore gracefully
+            }
         }
     }

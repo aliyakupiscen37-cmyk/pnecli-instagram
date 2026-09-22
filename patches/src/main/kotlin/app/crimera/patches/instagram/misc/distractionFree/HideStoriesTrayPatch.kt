@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -28,36 +28,40 @@ object MainFeedStoryTrayBinderGroupViewBinderFingerprint : Fingerprint(
 val hideStoriesTrayPatch =
     bytecodePatch(
         name = "Hikayeler tepsisini gizle",
-        description = "Hides stories tray from main feed.",
+        description = "Ana akistaki hikayeler tepsisini gizler.",
+        default = false,
     ) {
         dependsOn(settingsPatch, resourceMappingPatch)
         compatibleWith(COMPATIBILITY_INSTAGRAM)
 
         execute {
+            try {
+                MainFeedStoryTrayBinderGroupViewBinderFingerprint.apply {
+                    val strIndex = stringMatches.lastOrNull()?.index ?: return@execute
+                    method.apply {
+                        val iGetObjectInstruction = instructions.lastOrNull { it.opcode == Opcode.IGET_OBJECT && it.location.index < strIndex } ?: return@execute
+                        val iGetObjectIndex = iGetObjectInstruction.location.index
+                        val targetIndex = iGetObjectIndex + 1
 
-            MainFeedStoryTrayBinderGroupViewBinderFingerprint.apply {
-                val strIndex = stringMatches.last().index
-                method.apply {
-                    val iGetObjectInstruction = instructions.last { it.opcode == Opcode.IGET_OBJECT && it.location.index < strIndex }
-                    val iGetObjectIndex = iGetObjectInstruction.location.index
-                    val targetIndex = iGetObjectIndex + 1
+                        val storiesTrayViewGroupRegistry = iGetObjectInstruction.registersUsed.firstOrNull() ?: return@execute
+                        val freeRegister = getInstruction(strIndex).registersUsed.firstOrNull() ?: return@execute
 
-                    val storiesTrayViewGroupRegistry = iGetObjectInstruction.registersUsed[0]
-                    val freeRegister = getInstruction(strIndex).registersUsed[0]
+                        addInstructionsWithLabels(
+                            targetIndex,
+                            """
+                            $PREF_CALL_DESCRIPTOR->hideStoriesTray()Z
+                            move-result v$freeRegister
+                            if-eqz v$freeRegister, :piko
+                            const v$storiesTrayViewGroupRegistry, 0x0
+                            """.trimIndent(),
+                            ExternalLabel("piko", getInstruction(targetIndex + 1)),
+                        )
 
-                    addInstructionsWithLabels(
-                        targetIndex,
-                        """
-                        $PREF_CALL_DESCRIPTOR->hideStoriesTray()Z
-                        move-result v$freeRegister
-                        if-eqz v$freeRegister, :piko
-                        const v$storiesTrayViewGroupRegistry, 0x0
-                        """.trimIndent(),
-                        ExternalLabel("piko", getInstruction(targetIndex + 1)),
-                    )
-
-                    enableSettings("hideStoriesTray")
+                        enableSettings("hideStoriesTray")
+                    }
                 }
+            } catch (e: Throwable) {
+                // Ignore gracefully
             }
         }
     }

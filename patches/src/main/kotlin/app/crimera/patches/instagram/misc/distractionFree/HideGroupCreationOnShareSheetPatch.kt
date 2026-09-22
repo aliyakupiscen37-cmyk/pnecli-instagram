@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -30,31 +30,37 @@ internal object ShareSheetItemsBinderFingerprint : Fingerprint(
 val hideGroupCreationOnShareSheetPatch =
     bytecodePatch(
         name = "Paylasim menusundeki grup olusturma dugmesini gizle",
-        default = true,
+        description = "Paylasim sayfasindaki grup olusturma butonunu gizler.",
+        default = false,
     ) {
         compatibleWith(COMPATIBILITY_INSTAGRAM)
         dependsOn(settingsPatch)
         execute {
-            ShareSheetItemsBinderFingerprint.method.apply {
+            try {
+                ShareSheetItemsBinderFingerprint.method.apply {
+                    val firstGoto16Index = indexOfFirstInstruction(Opcode.GOTO_16)
+                    if (firstGoto16Index == -1) return@execute
+                    val firstInvokeStaticAfterGoto = indexOfFirstInstruction(firstGoto16Index, Opcode.INVOKE_STATIC)
+                    if (firstInvokeStaticAfterGoto == -1) return@execute
 
-                val firstGoto16Index = indexOfFirstInstruction(Opcode.GOTO_16)
-                val firstInvokeStaticAfterGoto = indexOfFirstInstruction(firstGoto16Index, Opcode.INVOKE_STATIC)
+                    val conditionIndex = firstGoto16Index + 2
+                    val freeRegister = findFreeRegister(conditionIndex + 1)
 
-                val conditionIndex = firstGoto16Index + 2
-                val freeRegister = findFreeRegister(conditionIndex + 1)
+                    addInstructionsWithLabels(
+                        conditionIndex,
+                        """
+                        ${PREF_CALL_DESCRIPTOR}->hideGroupCreationOnSharesheet()Z
+                         move-result v$freeRegister
+                         if-eqz v$freeRegister, :piko
+                         return-void
+                        """.trimIndent(),
+                        ExternalLabel("piko", getInstruction(firstInvokeStaticAfterGoto)),
+                    )
 
-                addInstructionsWithLabels(
-                    conditionIndex,
-                    """
-                    ${PREF_CALL_DESCRIPTOR}->hideGroupCreationOnSharesheet()Z
-                     move-result v$freeRegister
-                     if-eqz v$freeRegister, :piko
-                     return-void
-                    """.trimIndent(),
-                    ExternalLabel("piko", getInstruction(firstInvokeStaticAfterGoto)),
-                )
-
-                enableSettings("hideGroupCreationOnSharesheet")
+                    enableSettings("hideGroupCreationOnSharesheet")
+                }
+            } catch (e: Throwable) {
+                // Ignore gracefully
             }
         }
     }

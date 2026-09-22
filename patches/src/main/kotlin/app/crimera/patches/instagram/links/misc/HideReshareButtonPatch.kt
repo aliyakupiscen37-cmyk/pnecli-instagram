@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -45,46 +45,50 @@ internal object LiveTreeGetOptionalBooleanFingerprint : Fingerprint(
 val hideReshareButtonPatch =
     bytecodePatch(
         name = "Yeniden paylas butonunu gizle",
-        description = "Hides the reshare button from both posts and reels.",
+        description = "Gonderi ve Reels altindaki yeniden paylas butonunu gizler.",
+        default = false,
     ) {
         dependsOn(settingsPatch, resourceMappingPatch)
         compatibleWith(COMPATIBILITY_INSTAGRAM)
 
         execute {
+            try {
+                val PREF_CALL = "$PREF_CALL_DESCRIPTOR->hideReshareButton()Z"
 
-            val PREF_CALL = "$PREF_CALL_DESCRIPTOR->hideReshareButton()Z"
+                FeedResponseMediaParserFingerprint.method.apply {
+                    addInstructionsWithLabels(
+                        0,
+                        """
+                        $PREF_CALL
+                        move-result v0
+                        if-eqz v0, :piko
+                        sget-object v0, Ljava/lang/Boolean;->FALSE:Ljava/lang/Boolean;
+                        return-object v0
+                        """.trimMargin(),
+                        ExternalLabel("piko", getInstruction(0)),
+                    )
+                }
 
-            FeedResponseMediaParserFingerprint.method.apply {
-                addInstructionsWithLabels(
+                // If it's trying to get the value for our field of interest via the Pando native library,
+                // force the value to false instead
+                LiveTreeGetOptionalBooleanFingerprint.method.addInstructions(
                     0,
                     """
+                    const v0, $hashedFieldInteger
+                    if-ne p1, v0, :nopatch
                     $PREF_CALL
                     move-result v0
-                    if-eqz v0, :piko
+                    if-eqz v0, :nopatch
                     sget-object v0, Ljava/lang/Boolean;->FALSE:Ljava/lang/Boolean;
                     return-object v0
-                    """.trimMargin(),
-                    ExternalLabel("piko", getInstruction(0)),
+                    :nopatch
+                    nop
+            """,
                 )
+
+                enableSettings("hideReshareButton")
+            } catch (e: Throwable) {
+                // Ignore gracefully
             }
-
-            // If it's trying to get the value for our field of interest via the Pando native library,
-            // force the value to false instead
-            LiveTreeGetOptionalBooleanFingerprint.method.addInstructions(
-                0,
-                """
-                const v0, $hashedFieldInteger
-                if-ne p1, v0, :nopatch
-                $PREF_CALL
-                move-result v0
-                if-eqz v0, :nopatch
-                sget-object v0, Ljava/lang/Boolean;->FALSE:Ljava/lang/Boolean;
-                return-object v0
-                :nopatch
-                nop
-        """,
-            )
-
-            enableSettings("hideReshareButton")
         }
     }

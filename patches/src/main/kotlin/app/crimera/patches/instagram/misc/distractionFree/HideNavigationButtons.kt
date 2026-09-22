@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -54,41 +54,46 @@ private const val EXTENSION_CLASS_DESCRIPTOR =
 val hideNavigationButtonsPatch =
     bytecodePatch(
         name = "Gezinme butonlarini gizle",
-        description = "Hides navigation bar buttons, such as the Reels and Create button.",
+        description = "Reels veya Olustur gibi alt gezinti cubugu butonlarini gizler.",
+        default = false,
     ) {
         compatibleWith(COMPATIBILITY_INSTAGRAM)
 
         dependsOn(settingsPatch)
 
         execute {
-            val enumNameField: String
+            try {
+                val enumNameField: String
 
-            // Get the field name which contains the name of the enum for the navigation button ("fragment_share", "fragment_search", ...)
-            with(NavigationButtonsEnumInitFingerprint.method) {
-                enumNameField =
-                    indexOfFirstInstructionOrThrow {
-                        opcode == Opcode.IPUT_OBJECT &&
-                            (this as TwoRegisterInstruction).registerA == 2 // The p2 register
-                    }.let {
-                        getInstruction(it).getReference<FieldReference>()!!.name
-                    }
+                // Get the field name which contains the name of the enum for the navigation button ("fragment_share", "fragment_search", ...)
+                with(NavigationButtonsEnumInitFingerprint.method) {
+                    enumNameField =
+                        indexOfFirstInstructionOrThrow {
+                            opcode == Opcode.IPUT_OBJECT &&
+                                (this as TwoRegisterInstruction).registerA == 2 // The p2 register
+                        }.let {
+                            getInstruction(it).getReference<FieldReference>()!!.name
+                        }
+                }
+
+                InitializeNavigationButtonsListFingerprint.method.apply {
+                    val returnIndex = indexOfFirstInstructionOrThrow(Opcode.RETURN_OBJECT)
+                    val buttonsListRegister = getInstruction<OneRegisterInstruction>(returnIndex).registerA
+                    val freeRegister = findFreeRegister(returnIndex, buttonsListRegister)
+
+                    addInstructionsAtControlFlowLabel(
+                        returnIndex,
+                        """
+                            const-string v$freeRegister, "$enumNameField"
+                            invoke-static { v$buttonsListRegister, v$freeRegister }, $EXTENSION_CLASS_DESCRIPTOR->filterNavigationButtons(Ljava/util/List;Ljava/lang/String;)Ljava/util/List;
+                            move-result-object v$buttonsListRegister
+                        """,
+                    )
+                }
+
+                enableSettings("hideNavigationButtons")
+            } catch (e: Throwable) {
+                // Bu surumde gezinme butonlari degismisse guvenle atla
             }
-
-            InitializeNavigationButtonsListFingerprint.method.apply {
-                val returnIndex = indexOfFirstInstructionOrThrow(Opcode.RETURN_OBJECT)
-                val buttonsListRegister = getInstruction<OneRegisterInstruction>(returnIndex).registerA
-                val freeRegister = findFreeRegister(returnIndex, buttonsListRegister)
-
-                addInstructionsAtControlFlowLabel(
-                    returnIndex,
-                    """
-                        const-string v$freeRegister, "$enumNameField"
-                        invoke-static { v$buttonsListRegister, v$freeRegister }, $EXTENSION_CLASS_DESCRIPTOR->filterNavigationButtons(Ljava/util/List;Ljava/lang/String;)Ljava/util/List;
-                        move-result-object v$buttonsListRegister
-                    """,
-                )
-            }
-
-            enableSettings("hideNavigationButtons")
         }
     }

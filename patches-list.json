@@ -5,7 +5,7 @@
     {
       "name": "Akisi takip edilen profillerle sinirla",
       "description": "Ana akisi sadece takip ettiginiz profillerin gonderileriyle sinirlar.",
-      "default": true,
+      "default": false,
       "dependencies": [
         "BytecodePatch"
       ],
@@ -417,8 +417,8 @@
     },
     {
       "name": "Gezinme butonlarini gizle",
-      "description": "Hides navigation bar buttons, such as the Reels and Create button.",
-      "default": true,
+      "description": "Reels veya Olustur gibi alt gezinti cubugu butonlarini gizler.",
+      "default": false,
       "dependencies": [
         "BytecodePatch"
       ],
@@ -700,8 +700,8 @@
     },
     {
       "name": "Hikayeler tepsisini gizle",
-      "description": "Hides stories tray from main feed.",
-      "default": true,
+      "description": "Ana akistaki hikayeler tepsisini gizler.",
+      "default": false,
       "dependencies": [
         "BytecodePatch",
         "ResourcePatch"
@@ -889,8 +889,8 @@
     },
     {
       "name": "Kaydirarak icerik olusturmayi kapat",
-      "description": "Prevents opening the creation screen by swiping right on the home tab.",
-      "default": true,
+      "description": "Ana sekmede saga kaydirarak icerik olusturma ekraninin acilmasini engeller.",
+      "default": false,
       "dependencies": [
         "BytecodePatch"
       ],
@@ -1166,8 +1166,8 @@
     },
     {
       "name": "Notlar tepsisini gizle",
-      "description": "Hides notes tray in DM section",
-      "default": true,
+      "description": "DM bolumundeki notlar tepsisini gizler.",
+      "default": false,
       "dependencies": [
         "BytecodePatch",
         "ResourcePatch"
@@ -1350,8 +1350,8 @@
     },
     {
       "name": "Paylasim menusundeki grup olusturma dugmesini gizle",
-      "description": null,
-      "default": true,
+      "description": "Paylasim sayfasindaki grup olusturma butonunu gizler.",
+      "default": false,
       "dependencies": [
         "BytecodePatch"
       ],
@@ -1772,8 +1772,8 @@
     },
     {
       "name": "Yeniden paylas butonunu gizle",
-      "description": "Hides the reshare button from both posts and reels.",
-      "default": true,
+      "description": "Gonderi ve Reels altindaki yeniden paylas butonunu gizler.",
+      "default": false,
       "dependencies": [
         "BytecodePatch",
         "ResourcePatch"

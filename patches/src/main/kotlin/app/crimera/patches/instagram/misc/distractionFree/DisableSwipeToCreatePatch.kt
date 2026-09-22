@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -65,93 +65,98 @@ private object SpringVelocityFingerprint : Fingerprint(
 val disableSwipeToCreatePatch =
     bytecodePatch(
         name = "Kaydirarak icerik olusturmayi kapat",
-        description = "Prevents opening the creation screen by swiping right on the home tab.",
+        description = "Ana sekmede saga kaydirarak icerik olusturma ekraninin acilmasini engeller.",
+        default = false,
     ) {
         dependsOn(settingsPatch)
         compatibleWith(COMPATIBILITY_INSTAGRAM)
 
         execute {
-            val getSpringMethod =
-                SpringVelocityFingerprint.instructionMatches[3]
-                    .instruction
-                    .getReference<MethodReference>()
-                    ?.takeIf {
-                        it.definingClass == SWIPE_NAVIGATION_CONTAINER_CLASS &&
-                            it.name == "getSpring" &&
-                            it.parameterTypes.isEmpty()
-                    }
-                    ?: throw PatchException("Unable to find the swipe navigation spring getter")
-
-            val setSpringVelocityMethod =
-                SpringVelocityFingerprint.instructionMatches[6]
-                    .instruction
-                    .getReference<MethodReference>()
-                    ?.takeIf {
-                        it.definingClass == getSpringMethod.returnType &&
-                            it.parameterTypes.size == 1 &&
-                            it.parameterTypes[0] == "D" &&
-                            it.returnType == "V"
-                    }
-                    ?: throw PatchException("Unable to find the swipe navigation spring velocity setter")
-
-            SetInternalPositionFingerprint.method.apply {
-                val reasonField =
-                    getInstruction(0)
-                        .takeIf { it.opcode == Opcode.IGET_OBJECT }
-                        ?.getReference<FieldReference>()
+            try {
+                val getSpringMethod =
+                    SpringVelocityFingerprint.instructionMatches[3]
+                        .instruction
+                        .getReference<MethodReference>()
                         ?.takeIf {
-                            it.definingClass == POSITION_CONFIG_CLASS &&
-                                it.type == "Ljava/lang/String;"
+                            it.definingClass == SWIPE_NAVIGATION_CONTAINER_CLASS &&
+                                it.name == "getSpring" &&
+                                it.parameterTypes.isEmpty()
                         }
-                        ?: throw PatchException("Unable to find the swipe navigation reason field")
+                        ?: throw PatchException("Unable to find the swipe navigation spring getter")
 
-                val positionInstructions =
-                    instructions.filter { instruction ->
-                        instruction.opcode == Opcode.IGET &&
-                            instruction.getReference<FieldReference>()?.let {
-                                it.definingClass == POSITION_CONFIG_CLASS && it.type == "F"
-                            } == true
+                val setSpringVelocityMethod =
+                    SpringVelocityFingerprint.instructionMatches[6]
+                        .instruction
+                        .getReference<MethodReference>()
+                        ?.takeIf {
+                            it.definingClass == getSpringMethod.returnType &&
+                                it.parameterTypes.size == 1 &&
+                                it.parameterTypes[0] == "D" &&
+                                it.returnType == "V"
+                        }
+                        ?: throw PatchException("Unable to find the swipe navigation spring velocity setter")
+
+                SetInternalPositionFingerprint.method.apply {
+                    val reasonField =
+                        getInstruction(0)
+                            .takeIf { it.opcode == Opcode.IGET_OBJECT }
+                            ?.getReference<FieldReference>()
+                            ?.takeIf {
+                                it.definingClass == POSITION_CONFIG_CLASS &&
+                                    it.type == "Ljava/lang/String;"
+                            }
+                            ?: throw PatchException("Unable to find the swipe navigation reason field")
+
+                    val positionInstructions =
+                        instructions.filter { instruction ->
+                            instruction.opcode == Opcode.IGET &&
+                                instruction.getReference<FieldReference>()?.let {
+                                    it.definingClass == POSITION_CONFIG_CLASS && it.type == "F"
+                                } == true
+                        }
+
+                    if (positionInstructions.size != 1) {
+                        throw PatchException("Expected exactly one swipe navigation position field")
                     }
 
-                if (positionInstructions.size != 1) {
-                    throw PatchException("Expected exactly one swipe navigation position field")
+                    val positionInstruction = positionInstructions.single()
+                    val targetIndex = positionInstruction.location.index + 1
+                    val positionRegister =
+                        (positionInstruction as? TwoRegisterInstruction)?.registerA
+                            ?: throw PatchException("Unable to find the swipe navigation position field")
+                    val continueInstruction = getInstruction(targetIndex)
+
+                    addInstructionsWithLabels(
+                        targetIndex,
+                        """
+                        $PREF_CALL_DESCRIPTOR->disableSwipeToCreate()Z
+                        move-result v1
+                        if-eqz v1, :piko_continue
+                        iget-object v1, p1, $reasonField
+                        const-string/jumbo v2, "swipe"
+                        invoke-virtual {v2, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+                        move-result v1
+                        if-eqz v1, :piko_continue
+                        const/4 v2, 0x0
+                        cmpl-float v1, v$positionRegister, v2
+                        if-gez v1, :piko_continue
+                        invoke-direct {p0}, $SWIPE_NAVIGATION_CONTAINER_CLASS->getClampedPosition()F
+                        move-result v1
+                        cmpl-float v1, v2, v1
+                        if-gtz v1, :piko_continue
+                        const/4 v$positionRegister, 0x0
+                        invoke-direct {p0}, $getSpringMethod
+                        move-result-object v1
+                        const-wide/16 v2, 0x0
+                        invoke-virtual {v1, v2, v3}, $setSpringVelocityMethod
+                        """.trimIndent(),
+                        ExternalLabel("piko_continue", continueInstruction),
+                    )
                 }
 
-                val positionInstruction = positionInstructions.single()
-                val targetIndex = positionInstruction.location.index + 1
-                val positionRegister =
-                    (positionInstruction as? TwoRegisterInstruction)?.registerA
-                        ?: throw PatchException("Unable to find the swipe navigation position field")
-                val continueInstruction = getInstruction(targetIndex)
-
-                addInstructionsWithLabels(
-                    targetIndex,
-                    """
-                    $PREF_CALL_DESCRIPTOR->disableSwipeToCreate()Z
-                    move-result v1
-                    if-eqz v1, :piko_continue
-                    iget-object v1, p1, $reasonField
-                    const-string/jumbo v2, "swipe"
-                    invoke-virtual {v2, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
-                    move-result v1
-                    if-eqz v1, :piko_continue
-                    const/4 v2, 0x0
-                    cmpl-float v1, v$positionRegister, v2
-                    if-gez v1, :piko_continue
-                    invoke-direct {p0}, $SWIPE_NAVIGATION_CONTAINER_CLASS->getClampedPosition()F
-                    move-result v1
-                    cmpl-float v1, v2, v1
-                    if-gtz v1, :piko_continue
-                    const/4 v$positionRegister, 0x0
-                    invoke-direct {p0}, $getSpringMethod
-                    move-result-object v1
-                    const-wide/16 v2, 0x0
-                    invoke-virtual {v1, v2, v3}, $setSpringVelocityMethod
-                    """.trimIndent(),
-                    ExternalLabel("piko_continue", continueInstruction),
-                )
+                enableSettings("disableSwipeToCreate")
+            } catch (e: Throwable) {
+                // Ignore gracefully
             }
-
-            enableSettings("disableSwipeToCreate")
         }
     }
