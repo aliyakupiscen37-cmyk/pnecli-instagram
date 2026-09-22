@@ -27,7 +27,7 @@ import com.android.tools.smali.dexlib2.Opcode
 val recommendedFlagsPatch =
     bytecodePatch(
         name = "Onerilen bayraklar",
-        description = "Developer flags suggested by the community",
+        description = "Topluluk tarafindan onerilen gelistirici bayraklari.",
         default = true,
     ) {
         compatibleWith(COMPATIBILITY_INSTAGRAM)

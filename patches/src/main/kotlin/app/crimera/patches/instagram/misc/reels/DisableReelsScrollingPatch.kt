@@ -1,4 +1,4 @@
-﻿package app.crimera.patches.instagram.misc.reels
+package app.crimera.patches.instagram.misc.reels
 
 import app.crimera.patches.instagram.utils.Constants.COMPATIBILITY_INSTAGRAM
 import app.crimera.patches.instagram.utils.Constants.PREF_CALL_DESCRIPTOR
@@ -19,8 +19,7 @@ private object ClipsSwipeRefreshLayoutOnInterceptTouchEventFingerprint : Fingerp
 @Suppress("unused")
 val disableReelsScrollingPatch = bytecodePatch(
     name = "Reels kaydirmayi devre disi birak",
-    description = "Disables the endless scrolling behavior in Instagram Reels, preventing swiping to the next Reel. " +
-            "Note: On a clean install, the 'Tip' animation may appear but will stop on its own after a few seconds."
+    description = "Instagram Reels'deki sonsuz kaydirma ozelligini devre disi birakarak sonraki Reel'a kaydirmayi engeller."
 ) {
     compatibleWith(COMPATIBILITY_INSTAGRAM)
 

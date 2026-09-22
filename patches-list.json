@@ -4,7 +4,7 @@
   "patches": [
     {
       "name": "Akisi takip edilen profillerle sinirla",
-      "description": "Filters the home feed to display only content from profiles you follow.",
+      "description": "Ana akisi sadece takip ettiginiz profillerin gonderileriyle sinirlar.",
       "default": true,
       "dependencies": [
         "BytecodePatch"
@@ -34,9 +34,40 @@
     },
     {
       "name": "Alttaki bos alani kaldir",
-      "description": "Removes empty space below bottom navigation bar",
+      "description": "Alt gezinti cubugunun altindaki bos alani kaldirir.",
       "default": true,
       "dependencies": [
+        "BytecodePatch"
+      ],
+      "compatiblePackages": [
+        {
+          "packageName": "com.instagram.android",
+          "name": "Instagram",
+          "description": null,
+          "apkFileType": "APKM",
+          "appIconColor": "#FC483C",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "439.0.0.37.89",
+              "versionCodes": {
+                "ARM64_V8A": 384510827
+              },
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Analitikleri engelle",
+      "description": "Block analytics that are sent to Instagram/Facebook servers.",
+      "default": true,
+      "dependencies": [
+        "BytecodePatch",
         "BytecodePatch"
       ],
       "compatiblePackages": [
@@ -96,7 +127,7 @@
     },
     {
       "name": "Ayarlari ekle",
-      "description": "Adds settings to control preferences are patching",
+      "description": "pne cli yama ayarlarini Instagram ayarlarina ekler.",
       "default": true,
       "dependencies": [
         "BytecodePatch",
@@ -134,12 +165,10 @@
       "options": []
     },
     {
-      "name": "Calisan seceneklerini ac",
-      "description": "Unlocks all options using by employee for debugging",
+      "name": "Baglanti dogrulama",
+      "description": "Fixes app crashing issue while opening links from a different app",
       "default": true,
       "dependencies": [
-        "BytecodePatch",
-        "BytecodePatch",
         "BytecodePatch"
       ],
       "compatiblePackages": [
@@ -166,7 +195,37 @@
       "options": []
     },
     {
-      "name": "Change like animation",
+      "name": "Baglantilari harici tarayicida ac",
+      "description": "Changes links to always open in your external browser, instead of the in-app browser.",
+      "default": true,
+      "dependencies": [
+        "BytecodePatch"
+      ],
+      "compatiblePackages": [
+        {
+          "packageName": "com.instagram.android",
+          "name": "Instagram",
+          "description": null,
+          "apkFileType": "APKM",
+          "appIconColor": "#FC483C",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "439.0.0.37.89",
+              "versionCodes": {
+                "ARM64_V8A": 384510827
+              },
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Begeni animasyonunu degistir",
       "description": "Change the animation to one from existing Rings like animations",
       "default": true,
       "dependencies": [
@@ -196,347 +255,78 @@
       "options": []
     },
     {
+      "name": "Calisan seceneklerini ac",
+      "description": "Calisanlara ozel tum test ve hata ayiklama seceneklerini acar.",
+      "default": true,
+      "dependencies": [
+        "BytecodePatch",
+        "BytecodePatch",
+        "BytecodePatch"
+      ],
+      "compatiblePackages": [
+        {
+          "packageName": "com.instagram.android",
+          "name": "Instagram",
+          "description": null,
+          "apkFileType": "APKM",
+          "appIconColor": "#FC483C",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "439.0.0.37.89",
+              "versionCodes": {
+                "ARM64_V8A": 384510827
+              },
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Canli yayinlari anonim izle",
+      "description": null,
+      "default": true,
+      "dependencies": [
+        "BytecodePatch",
+        "BytecodePatch",
+        "BytecodePatch",
+        "BytecodePatch"
+      ],
+      "compatiblePackages": [
+        {
+          "packageName": "com.instagram.android",
+          "name": "Instagram",
+          "description": null,
+          "apkFileType": "APKM",
+          "appIconColor": "#FC483C",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "439.0.0.37.89",
+              "versionCodes": {
+                "ARM64_V8A": 384510827
+              },
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
       "name": "Cift dokunarak begeniyi devre disi birak",
-      "description": "Disable double tap like on post, reel, comment and message",
+      "description": "Gonderi, Reels, yorum ve mesajlarda cift dokunarak begenmeyi devre disi birakir.",
       "default": true,
       "dependencies": [
         "BytecodePatch",
         "BytecodePatch",
         "BytecodePatch",
-        "BytecodePatch",
-        "BytecodePatch"
-      ],
-      "compatiblePackages": [
-        {
-          "packageName": "com.instagram.android",
-          "name": "Instagram",
-          "description": null,
-          "apkFileType": "APKM",
-          "appIconColor": "#FC483C",
-          "signatures": null,
-          "targets": [
-            {
-              "version": "439.0.0.37.89",
-              "versionCodes": {
-                "ARM64_V8A": 384510827
-              },
-              "isExperimental": false,
-              "minSdk": null,
-              "description": null
-            }
-          ]
-        }
-      ],
-      "options": []
-    },
-    {
-      "name": "Clone",
-      "description": "Changes the package name and the app name. This allows you to install the patched app alongside the original Instagram app.\nCaution: Do not select the official Morphe's \"Change package name\" universal patch.",
-      "default": false,
-      "dependencies": [
-        "BytecodePatch"
-      ],
-      "compatiblePackages": [
-        {
-          "packageName": "com.instagram.android",
-          "name": "Instagram",
-          "description": null,
-          "apkFileType": "APKM",
-          "appIconColor": "#FC483C",
-          "signatures": null,
-          "targets": [
-            {
-              "version": "439.0.0.37.89",
-              "versionCodes": {
-                "ARM64_V8A": 384510827
-              },
-              "isExperimental": false,
-              "minSdk": null,
-              "description": null
-            }
-          ]
-        }
-      ],
-      "options": [
-        {
-          "key": "packageName",
-          "title": "Package name",
-          "description": "A new package name for the patched app.",
-          "required": true,
-          "type": "kotlin.String",
-          "default": "com.instagram.android.piko",
-          "values": null
-        },
-        {
-          "key": "appName",
-          "title": "App name",
-          "description": "A new app name (label). Entering \"Instagram\" will skip changing the app name.",
-          "required": true,
-          "type": "kotlin.String",
-          "default": "Piko Instagram",
-          "values": null
-        }
-      ]
-    },
-    {
-      "name": "Copy comment",
-      "description": "Adds a button to copy comments on posts and reels.",
-      "default": true,
-      "dependencies": [
-        "BytecodePatch",
-        "BytecodePatch",
-        "BytecodePatch",
-        "BytecodePatch",
-        "ResourcePatch",
-        "BytecodePatch",
-        "BytecodePatch"
-      ],
-      "compatiblePackages": [
-        {
-          "packageName": "com.instagram.android",
-          "name": "Instagram",
-          "description": null,
-          "apkFileType": "APKM",
-          "appIconColor": "#FC483C",
-          "signatures": null,
-          "targets": [
-            {
-              "version": "439.0.0.37.89",
-              "versionCodes": {
-                "ARM64_V8A": 384510827
-              },
-              "isExperimental": false,
-              "minSdk": null,
-              "description": null
-            }
-          ]
-        }
-      ],
-      "options": []
-    },
-    {
-      "name": "Custom sharing domain",
-      "description": "Allows for using custom domains when sharing posts, reels and stories.",
-      "default": true,
-      "dependencies": [
-        "BytecodePatch"
-      ],
-      "compatiblePackages": [
-        {
-          "packageName": "com.instagram.android",
-          "name": "Instagram",
-          "description": null,
-          "apkFileType": "APKM",
-          "appIconColor": "#FC483C",
-          "signatures": null,
-          "targets": [
-            {
-              "version": "439.0.0.37.89",
-              "versionCodes": {
-                "ARM64_V8A": 384510827
-              },
-              "isExperimental": false,
-              "minSdk": null,
-              "description": null
-            }
-          ]
-        }
-      ],
-      "options": []
-    },
-    {
-      "name": "Disable analytics",
-      "description": "Block analytics that are sent to Instagram/Facebook servers.",
-      "default": true,
-      "dependencies": [
-        "BytecodePatch",
-        "BytecodePatch"
-      ],
-      "compatiblePackages": [
-        {
-          "packageName": "com.instagram.android",
-          "name": "Instagram",
-          "description": null,
-          "apkFileType": "APKM",
-          "appIconColor": "#FC483C",
-          "signatures": null,
-          "targets": [
-            {
-              "version": "439.0.0.37.89",
-              "versionCodes": {
-                "ARM64_V8A": 384510827
-              },
-              "isExperimental": false,
-              "minSdk": null,
-              "description": null
-            }
-          ]
-        }
-      ],
-      "options": []
-    },
-    {
-      "name": "Disable comments",
-      "description": null,
-      "default": true,
-      "dependencies": [
-        "BytecodePatch",
-        "BytecodePatch"
-      ],
-      "compatiblePackages": [
-        {
-          "packageName": "com.instagram.android",
-          "name": "Instagram",
-          "description": null,
-          "apkFileType": "APKM",
-          "appIconColor": "#FC483C",
-          "signatures": null,
-          "targets": [
-            {
-              "version": "439.0.0.37.89",
-              "versionCodes": {
-                "ARM64_V8A": 384510827
-              },
-              "isExperimental": false,
-              "minSdk": null,
-              "description": null
-            }
-          ]
-        }
-      ],
-      "options": []
-    },
-    {
-      "name": "Disable discover people",
-      "description": "Disables discover people section on user profile",
-      "default": true,
-      "dependencies": [
-        "BytecodePatch",
-        "BytecodePatch"
-      ],
-      "compatiblePackages": [
-        {
-          "packageName": "com.instagram.android",
-          "name": "Instagram",
-          "description": null,
-          "apkFileType": "APKM",
-          "appIconColor": "#FC483C",
-          "signatures": null,
-          "targets": [
-            {
-              "version": "439.0.0.37.89",
-              "versionCodes": {
-                "ARM64_V8A": 384510827
-              },
-              "isExperimental": false,
-              "minSdk": null,
-              "description": null
-            }
-          ]
-        }
-      ],
-      "options": []
-    },
-    {
-      "name": "Disable explore",
-      "description": null,
-      "default": true,
-      "dependencies": [
-        "BytecodePatch",
-        "BytecodePatch"
-      ],
-      "compatiblePackages": [
-        {
-          "packageName": "com.instagram.android",
-          "name": "Instagram",
-          "description": null,
-          "apkFileType": "APKM",
-          "appIconColor": "#FC483C",
-          "signatures": null,
-          "targets": [
-            {
-              "version": "439.0.0.37.89",
-              "versionCodes": {
-                "ARM64_V8A": 384510827
-              },
-              "isExperimental": false,
-              "minSdk": null,
-              "description": null
-            }
-          ]
-        }
-      ],
-      "options": []
-    },
-    {
-      "name": "Disable highlights",
-      "description": null,
-      "default": true,
-      "dependencies": [
-        "BytecodePatch",
-        "BytecodePatch"
-      ],
-      "compatiblePackages": [
-        {
-          "packageName": "com.instagram.android",
-          "name": "Instagram",
-          "description": null,
-          "apkFileType": "APKM",
-          "appIconColor": "#FC483C",
-          "signatures": null,
-          "targets": [
-            {
-              "version": "439.0.0.37.89",
-              "versionCodes": {
-                "ARM64_V8A": 384510827
-              },
-              "isExperimental": false,
-              "minSdk": null,
-              "description": null
-            }
-          ]
-        }
-      ],
-      "options": []
-    },
-    {
-      "name": "Disable stories",
-      "description": null,
-      "default": true,
-      "dependencies": [
-        "BytecodePatch",
-        "BytecodePatch"
-      ],
-      "compatiblePackages": [
-        {
-          "packageName": "com.instagram.android",
-          "name": "Instagram",
-          "description": null,
-          "apkFileType": "APKM",
-          "appIconColor": "#FC483C",
-          "signatures": null,
-          "targets": [
-            {
-              "version": "439.0.0.37.89",
-              "versionCodes": {
-                "ARM64_V8A": 384510827
-              },
-              "isExperimental": false,
-              "minSdk": null,
-              "description": null
-            }
-          ]
-        }
-      ],
-      "options": []
-    },
-    {
-      "name": "Disable typing status",
-      "description": null,
-      "default": true,
-      "dependencies": [
-        "BytecodePatch",
-        "ResourcePatch",
         "BytecodePatch",
         "BytecodePatch"
       ],
@@ -565,41 +355,9 @@
     },
     {
       "name": "Ekran goruntusu tespitini devre disi birak",
-      "description": "Disables screenshots detection in DM",
+      "description": "DM mesajlarinda ekran goruntusu alma bildirimini devre disi birakir.",
       "default": true,
       "dependencies": [
-        "BytecodePatch"
-      ],
-      "compatiblePackages": [
-        {
-          "packageName": "com.instagram.android",
-          "name": "Instagram",
-          "description": null,
-          "apkFileType": "APKM",
-          "appIconColor": "#FC483C",
-          "signatures": null,
-          "targets": [
-            {
-              "version": "439.0.0.37.89",
-              "versionCodes": {
-                "ARM64_V8A": 384510827
-              },
-              "isExperimental": false,
-              "minSdk": null,
-              "description": null
-            }
-          ]
-        }
-      ],
-      "options": []
-    },
-    {
-      "name": "Filter stories",
-      "description": "Filter stories to hide based on different categories",
-      "default": true,
-      "dependencies": [
-        "BytecodePatch",
-        "BytecodePatch",
         "BytecodePatch"
       ],
       "compatiblePackages": [
@@ -627,7 +385,7 @@
     },
     {
       "name": "Gelistirici seceneklerini ac",
-      "description": "Unlocks developer option by long pressing home icon",
+      "description": "Ana sayfa simgesine uzun basarak gelistirici seceneklerini acar.",
       "default": true,
       "dependencies": [
         "BytecodePatch",
@@ -689,7 +447,7 @@
     },
     {
       "name": "Gonderilerde ek secenekler",
-      "description": "Adds an overflow menu button to get more options on post/reels, like copy description, copy username etc",
+      "description": "Gonderi ve Reels videolarina aciklama ve kullanici adi kopyalama gibi ek secenekler ekler.",
       "default": true,
       "dependencies": [
         "BytecodePatch",
@@ -723,7 +481,7 @@
     },
     {
       "name": "Gorsel kalitesini artir",
-      "description": "Fetches max resolution images from server.",
+      "description": "Sunucudan en yuksek cozunurluklu gorselleri yukler.",
       "default": true,
       "dependencies": [
         "BytecodePatch"
@@ -753,7 +511,7 @@
     },
     {
       "name": "Harici indirici",
-      "description": "Adds support to share post links directly to external downloader",
+      "description": "Gonderi baglantilarini harici indiriciye dogrudan paylasma destegi ekler.",
       "default": true,
       "dependencies": [
         "BytecodePatch",
@@ -785,39 +543,8 @@
       "options": []
     },
     {
-      "name": "Hide reshare button",
-      "description": "Hides the reshare button from both posts and reels.",
-      "default": true,
-      "dependencies": [
-        "BytecodePatch",
-        "ResourcePatch"
-      ],
-      "compatiblePackages": [
-        {
-          "packageName": "com.instagram.android",
-          "name": "Instagram",
-          "description": null,
-          "apkFileType": "APKM",
-          "appIconColor": "#FC483C",
-          "signatures": null,
-          "targets": [
-            {
-              "version": "439.0.0.37.89",
-              "versionCodes": {
-                "ARM64_V8A": 384510827
-              },
-              "isExperimental": false,
-              "minSdk": null,
-              "description": null
-            }
-          ]
-        }
-      ],
-      "options": []
-    },
-    {
       "name": "Hikaye bahsetmelerini goruntule",
-      "description": "Add option to view visible and hidden story mentions.",
+      "description": "Gorunur ve gizli hikaye bahsetmelerini gorme secenegi ekler.",
       "default": true,
       "dependencies": [
         "BytecodePatch",
@@ -852,7 +579,7 @@
     },
     {
       "name": "Hikaye gecisini kapat",
-      "description": "Disable automatic flipping/moving to next story",
+      "description": "Sonraki hikayeye otomatik gecisi kapatir.",
       "default": true,
       "dependencies": [
         "BytecodePatch"
@@ -943,7 +670,7 @@
     },
     {
       "name": "Hikaye zaman damgasini ozellestir",
-      "description": "Customise the timestamp that shows when the story was posted",
+      "description": "Hikayenin paylasildigi zaman damgasini ozellestirir.",
       "default": true,
       "dependencies": [
         "BytecodePatch"
@@ -1003,8 +730,104 @@
       "options": []
     },
     {
+      "name": "Hikayeleri anonim izle",
+      "description": null,
+      "default": true,
+      "dependencies": [
+        "BytecodePatch",
+        "BytecodePatch",
+        "BytecodePatch",
+        "BytecodePatch"
+      ],
+      "compatiblePackages": [
+        {
+          "packageName": "com.instagram.android",
+          "name": "Instagram",
+          "description": null,
+          "apkFileType": "APKM",
+          "appIconColor": "#FC483C",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "439.0.0.37.89",
+              "versionCodes": {
+                "ARM64_V8A": 384510827
+              },
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Hikayeleri devre disi birak",
+      "description": null,
+      "default": true,
+      "dependencies": [
+        "BytecodePatch",
+        "BytecodePatch"
+      ],
+      "compatiblePackages": [
+        {
+          "packageName": "com.instagram.android",
+          "name": "Instagram",
+          "description": null,
+          "apkFileType": "APKM",
+          "appIconColor": "#FC483C",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "439.0.0.37.89",
+              "versionCodes": {
+                "ARM64_V8A": 384510827
+              },
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Hikayeleri filtrele",
+      "description": "Filter stories to hide based on different categories",
+      "default": true,
+      "dependencies": [
+        "BytecodePatch",
+        "BytecodePatch",
+        "BytecodePatch"
+      ],
+      "compatiblePackages": [
+        {
+          "packageName": "com.instagram.android",
+          "name": "Instagram",
+          "description": null,
+          "apkFileType": "APKM",
+          "appIconColor": "#FC483C",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "439.0.0.37.89",
+              "versionCodes": {
+                "ARM64_V8A": 384510827
+              },
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
       "name": "Hikayeyi donguye al",
-      "description": "Replay the current story when it ends",
+      "description": "Hikaye bittiginde bastan tekrar oynatir.",
       "default": true,
       "dependencies": [
         "BytecodePatch"
@@ -1095,8 +918,119 @@
       "options": []
     },
     {
+      "name": "Kesfeti devre disi birak",
+      "description": null,
+      "default": true,
+      "dependencies": [
+        "BytecodePatch",
+        "BytecodePatch"
+      ],
+      "compatiblePackages": [
+        {
+          "packageName": "com.instagram.android",
+          "name": "Instagram",
+          "description": null,
+          "apkFileType": "APKM",
+          "appIconColor": "#FC483C",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "439.0.0.37.89",
+              "versionCodes": {
+                "ARM64_V8A": 384510827
+              },
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Kisileri kesfet bolumunu kapat",
+      "description": "Disables discover people section on user profile",
+      "default": true,
+      "dependencies": [
+        "BytecodePatch",
+        "BytecodePatch"
+      ],
+      "compatiblePackages": [
+        {
+          "packageName": "com.instagram.android",
+          "name": "Instagram",
+          "description": null,
+          "apkFileType": "APKM",
+          "appIconColor": "#FC483C",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "439.0.0.37.89",
+              "versionCodes": {
+                "ARM64_V8A": 384510827
+              },
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Klonla (Ikinci Instagram)",
+      "description": "Changes the package name and the app name. This allows you to install the patched app alongside the original Instagram app.\nCaution: Do not select the official Morphe's \"Change package name\" universal patch.",
+      "default": false,
+      "dependencies": [
+        "BytecodePatch"
+      ],
+      "compatiblePackages": [
+        {
+          "packageName": "com.instagram.android",
+          "name": "Instagram",
+          "description": null,
+          "apkFileType": "APKM",
+          "appIconColor": "#FC483C",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "439.0.0.37.89",
+              "versionCodes": {
+                "ARM64_V8A": 384510827
+              },
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": [
+        {
+          "key": "packageName",
+          "title": "Paket adi",
+          "description": "Yamalanmis uygulama icin yeni paket adi.",
+          "required": true,
+          "type": "kotlin.String",
+          "default": "com.instagram.android.pnecli",
+          "values": null
+        },
+        {
+          "key": "appName",
+          "title": "Uygulama adi",
+          "description": "Yeni uygulama adi. \"Instagram\" girerseniz isim degismez.",
+          "required": true,
+          "type": "kotlin.String",
+          "default": "pne cli Instagram",
+          "values": null
+        }
+      ]
+    },
+    {
       "name": "Kullanici ag sertifikasina izin ver",
-      "description": "Allows user network certificate for whitehat testing",
+      "description": "Guvenlik testleri icin kullanici ag sertifikalarina izin verir.",
       "default": true,
       "dependencies": [
         "BytecodePatch",
@@ -1127,7 +1061,7 @@
     },
     {
       "name": "Kurulum izin istemlerini devre disi birak",
-      "description": "Prevents contacts and location permission onboarding prompts from appearing.",
+      "description": "Rehber ve konum izni istemlerinin acilista gorunmesini engeller.",
       "default": true,
       "dependencies": [
         "BytecodePatch",
@@ -1158,7 +1092,7 @@
     },
     {
       "name": "Medya indir",
-      "description": "Adds ability to download posts, reels, stories and highlights",
+      "description": "Gonderileri, Reels, hikayeleri ve one cikanlari indirme ozelligi ekler.",
       "default": true,
       "dependencies": [
         "BytecodePatch",
@@ -1262,8 +1196,39 @@
       "options": []
     },
     {
+      "name": "One cikanlari devre disi birak",
+      "description": null,
+      "default": true,
+      "dependencies": [
+        "BytecodePatch",
+        "BytecodePatch"
+      ],
+      "compatiblePackages": [
+        {
+          "packageName": "com.instagram.android",
+          "name": "Instagram",
+          "description": null,
+          "apkFileType": "APKM",
+          "appIconColor": "#FC483C",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "439.0.0.37.89",
+              "versionCodes": {
+                "ARM64_V8A": 384510827
+              },
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
       "name": "Onerilen bayraklar",
-      "description": "Developer flags suggested by the community",
+      "description": "Topluluk tarafindan onerilen gelistirici bayraklari.",
       "default": true,
       "dependencies": [
         "BytecodePatch",
@@ -1324,8 +1289,38 @@
       "options": []
     },
     {
-      "name": "Open links externally",
-      "description": "Changes links to always open in your external browser, instead of the in-app browser.",
+      "name": "Ozel paylasim alan adi",
+      "description": "Allows for using custom domains when sharing posts, reels and stories.",
+      "default": true,
+      "dependencies": [
+        "BytecodePatch"
+      ],
+      "compatiblePackages": [
+        {
+          "packageName": "com.instagram.android",
+          "name": "Instagram",
+          "description": null,
+          "apkFileType": "APKM",
+          "appIconColor": "#FC483C",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "439.0.0.37.89",
+              "versionCodes": {
+                "ARM64_V8A": 384510827
+              },
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Paylasim baglantilarini temizle",
+      "description": null,
       "default": true,
       "dependencies": [
         "BytecodePatch"
@@ -1385,7 +1380,7 @@
     },
     {
       "name": "Plus abonelik avantajlarini ac",
-      "description": "Unlocks 'Plus' subscription benefits that are checked locally. USE IT AT YOUR OWN RISK",
+      "description": "Yerel kontrol edilen Plus abonelik ozelliklerinin kilidini acar. Sorumluluk kullaniciya aittir.",
       "default": true,
       "dependencies": [
         "BytecodePatch"
@@ -1415,7 +1410,7 @@
     },
     {
       "name": "Profilde ek secenekler",
-      "description": "Adds a new button to handle user related data like copy handle, download profile picture etc",
+      "description": "Kullanici profilinde kullanici adi kopyalama, profil resmi indirme gibi ek secenekler sunar.",
       "default": true,
       "dependencies": [
         "BytecodePatch",
@@ -1447,7 +1442,7 @@
     },
     {
       "name": "Reels kaydirmayi devre disi birak",
-      "description": "Disables the endless scrolling behavior in Instagram Reels, preventing swiping to the next Reel. Note: On a clean install, the 'Tip' animation may appear but will stop on its own after a few seconds.",
+      "description": "Instagram Reels'deki sonsuz kaydirma ozelligini devre disi birakarak sonraki Reel'a kaydirmayi engeller.",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [
@@ -1479,66 +1474,6 @@
       "default": true,
       "dependencies": [
         "BytecodePatch",
-        "BytecodePatch"
-      ],
-      "compatiblePackages": [
-        {
-          "packageName": "com.instagram.android",
-          "name": "Instagram",
-          "description": null,
-          "apkFileType": "APKM",
-          "appIconColor": "#FC483C",
-          "signatures": null,
-          "targets": [
-            {
-              "version": "439.0.0.37.89",
-              "versionCodes": {
-                "ARM64_V8A": 384510827
-              },
-              "isExperimental": false,
-              "minSdk": null,
-              "description": null
-            }
-          ]
-        }
-      ],
-      "options": []
-    },
-    {
-      "name": "Remove build expired popup",
-      "description": "Removes the popup that appears after a while, when the app version ages.",
-      "default": true,
-      "dependencies": [
-        "BytecodePatch"
-      ],
-      "compatiblePackages": [
-        {
-          "packageName": "com.instagram.android",
-          "name": "Instagram",
-          "description": null,
-          "apkFileType": "APKM",
-          "appIconColor": "#FC483C",
-          "signatures": null,
-          "targets": [
-            {
-              "version": "439.0.0.37.89",
-              "versionCodes": {
-                "ARM64_V8A": 384510827
-              },
-              "isExperimental": false,
-              "minSdk": null,
-              "description": null
-            }
-          ]
-        }
-      ],
-      "options": []
-    },
-    {
-      "name": "Sanitize share links",
-      "description": null,
-      "default": true,
-      "dependencies": [
         "BytecodePatch"
       ],
       "compatiblePackages": [
@@ -1597,7 +1532,7 @@
     },
     {
       "name": "Silinen mesajlari kaydet",
-      "description": "Captures incoming DMs locally as they arrive from the server and marks them when the sender deletes them.",
+      "description": "Gelen DM mesajlarini yerel olarak kaydeder ve gonderen sildiginde silindi olarak isaretler.",
       "default": true,
       "dependencies": [
         "BytecodePatch",
@@ -1660,7 +1595,7 @@
     },
     {
       "name": "Surum kodunu degistir",
-      "description": "Changes the version code of the app. This will turn off app store updates and allows downgrading an existing app install to an older app version.",
+      "description": "Uygulamanin surum kodunu degistirir. Bu, uygulama magazasi guncellemelerini kapatir ve mevcut yuklemeyi daha eski bir surume dusurmeye izin verir.",
       "default": true,
       "dependencies": [],
       "compatiblePackages": [
@@ -1687,21 +1622,51 @@
       "options": [
         {
           "key": "versionCode",
-          "title": "Version code",
-          "description": "The version code to use. Using the highest value turns off app store updates and allows downgrading an existing app install to an older app version.",
+          "title": "Surum kodu",
+          "description": "Kullanilacak surum kodu. En yuksek deger magazadan otomatik guncellemeleri engeller.",
           "required": true,
           "type": "kotlin.Int",
           "default": 2147483647,
           "values": {
-            "Lowest": 1,
-            "Highest": 2147483647
+            "En Dusuk": 1,
+            "En Yuksek": 2147483647
           }
         }
       ]
     },
     {
+      "name": "Surum suresi doldu uyarisini kaldir",
+      "description": "Removes the popup that appears after a while, when the app version ages.",
+      "default": true,
+      "dependencies": [
+        "BytecodePatch"
+      ],
+      "compatiblePackages": [
+        {
+          "packageName": "com.instagram.android",
+          "name": "Instagram",
+          "description": null,
+          "apkFileType": "APKM",
+          "appIconColor": "#FC483C",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "439.0.0.37.89",
+              "versionCodes": {
+                "ARM64_V8A": 384510827
+              },
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
       "name": "Tema",
-      "description": "Adds Material You and AMOLED controls to Piko settings on Android 12 and later. On Android 8–11, it applies a fixed Material You-style theme or an optional AMOLED theme.",
+      "description": "Android 12 ve uzerinde pne cli ayarlarina Material You ve AMOLED kontrolleri ekler. Android 8–11 surumlerinde sabit Material You stili veya istege bagli AMOLED tema uygular.",
       "default": true,
       "dependencies": [
         "BytecodePatch",
@@ -1733,44 +1698,14 @@
       "options": [
         {
           "key": "amoled",
-          "title": "Pure-black AMOLED theme for Android 8–11",
-          "description": "Use a fixed pure-black AMOLED theme instead of the fixed Material You-style theme on Android 8–11. On Android 12 and later, use the AMOLED control in Piko settings.",
+          "title": "Android 8–11 icin saf siyah AMOLED tema",
+          "description": "Android 8–11 icin Material You yerine saf siyah AMOLED tema kullanir. Android 12 ve sonrasi icin pne cli ayarlarindaki AMOLED secenegini kullanin.",
           "required": false,
           "type": "kotlin.Boolean",
           "default": false,
           "values": null
         }
       ]
-    },
-    {
-      "name": "Validate links",
-      "description": "Fixes app crashing issue while opening links from a different app",
-      "default": true,
-      "dependencies": [
-        "BytecodePatch"
-      ],
-      "compatiblePackages": [
-        {
-          "packageName": "com.instagram.android",
-          "name": "Instagram",
-          "description": null,
-          "apkFileType": "APKM",
-          "appIconColor": "#FC483C",
-          "signatures": null,
-          "targets": [
-            {
-              "version": "439.0.0.37.89",
-              "versionCodes": {
-                "ARM64_V8A": 384510827
-              },
-              "isExperimental": false,
-              "minSdk": null,
-              "description": null
-            }
-          ]
-        }
-      ],
-      "options": []
     },
     {
       "name": "Video otomatik oynatmayi kapat",
@@ -1803,12 +1738,12 @@
       "options": []
     },
     {
-      "name": "View live anonymously",
+      "name": "Yaziyor durumunu gizle",
       "description": null,
       "default": true,
       "dependencies": [
         "BytecodePatch",
-        "BytecodePatch",
+        "ResourcePatch",
         "BytecodePatch",
         "BytecodePatch"
       ],
@@ -1836,14 +1771,12 @@
       "options": []
     },
     {
-      "name": "View stories anonymously",
-      "description": null,
+      "name": "Yeniden paylas butonunu gizle",
+      "description": "Hides the reshare button from both posts and reels.",
       "default": true,
       "dependencies": [
         "BytecodePatch",
-        "BytecodePatch",
-        "BytecodePatch",
-        "BytecodePatch"
+        "ResourcePatch"
       ],
       "compatiblePackages": [
         {
@@ -1871,6 +1804,73 @@
     {
       "name": "Yorum medyasini kaydet",
       "description": "Adds a button to save media comments on posts and reels.",
+      "default": true,
+      "dependencies": [
+        "BytecodePatch",
+        "BytecodePatch",
+        "BytecodePatch",
+        "BytecodePatch",
+        "ResourcePatch",
+        "BytecodePatch",
+        "BytecodePatch"
+      ],
+      "compatiblePackages": [
+        {
+          "packageName": "com.instagram.android",
+          "name": "Instagram",
+          "description": null,
+          "apkFileType": "APKM",
+          "appIconColor": "#FC483C",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "439.0.0.37.89",
+              "versionCodes": {
+                "ARM64_V8A": 384510827
+              },
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Yorumlari devre disi birak",
+      "description": null,
+      "default": true,
+      "dependencies": [
+        "BytecodePatch",
+        "BytecodePatch"
+      ],
+      "compatiblePackages": [
+        {
+          "packageName": "com.instagram.android",
+          "name": "Instagram",
+          "description": null,
+          "apkFileType": "APKM",
+          "appIconColor": "#FC483C",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "439.0.0.37.89",
+              "versionCodes": {
+                "ARM64_V8A": 384510827
+              },
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Yorumu kopyala",
+      "description": "Gonderi ve Reels altindaki yorumlari kopyalamak icin buton ekler.",
       "default": true,
       "dependencies": [
         "BytecodePatch",

@@ -26,7 +26,7 @@ internal object ActiveBenefitCheckerFingerprint : Fingerprint(
 val unlockPlusBenefitsPatch =
     bytecodePatch(
         name = "Plus abonelik avantajlarini ac",
-        description = "Unlocks 'Plus' subscription benefits that are checked locally. USE IT AT YOUR OWN RISK",
+        description = "Yerel kontrol edilen Plus abonelik ozelliklerinin kilidini acar. Sorumluluk kullaniciya aittir.",
         default = true,
     ) {
         compatibleWith(COMPATIBILITY_INSTAGRAM)

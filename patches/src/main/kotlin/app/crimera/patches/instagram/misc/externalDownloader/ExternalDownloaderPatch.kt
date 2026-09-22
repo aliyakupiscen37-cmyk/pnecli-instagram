@@ -19,7 +19,7 @@ import app.morphe.patcher.patch.bytecodePatch
 val externalDownloaderPatch =
     bytecodePatch(
         name = "Harici indirici",
-        description = "Adds support to share post links directly to external downloader",
+        description = "Gonderi baglantilarini harici indiriciye dogrudan paylasma destegi ekler.",
         default = true,
     ) {
         compatibleWith(COMPATIBILITY_INSTAGRAM)

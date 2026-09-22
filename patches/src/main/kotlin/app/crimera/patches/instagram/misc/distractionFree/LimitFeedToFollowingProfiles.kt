@@ -39,7 +39,7 @@ private object MainFeedHeaderMapFinderFingerprint : Fingerprint(
 val limitFeedToFollowingProfiles =
     bytecodePatch(
         name = "Akisi takip edilen profillerle sinirla",
-        description = "Filters the home feed to display only content from profiles you follow.",
+        description = "Ana akisi sadece takip ettiginiz profillerin gonderileriyle sinirlar.",
     ) {
         dependsOn(settingsPatch)
         compatibleWith(COMPATIBILITY_INSTAGRAM)

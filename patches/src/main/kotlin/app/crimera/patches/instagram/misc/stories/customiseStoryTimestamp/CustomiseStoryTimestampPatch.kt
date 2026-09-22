@@ -29,7 +29,7 @@ internal object ReelItemTimestampFormatMethodFingerprint : Fingerprint(
 val customiseStoryTimestampPatch =
     bytecodePatch(
         name = "Hikaye zaman damgasini ozellestir",
-        description = "Customise the timestamp that shows when the story was posted",
+        description = "Hikayenin paylasildigi zaman damgasini ozellestirir.",
     ) {
         dependsOn(settingsPatch)
 

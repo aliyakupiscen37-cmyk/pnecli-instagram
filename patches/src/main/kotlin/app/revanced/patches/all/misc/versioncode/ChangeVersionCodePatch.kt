@@ -1,4 +1,4 @@
-﻿package app.revanced.patches.all.misc.versioncode
+package app.revanced.patches.all.misc.versioncode
 
 import app.crimera.patches.instagram.utils.Constants.COMPATIBILITY_INSTAGRAM
 import app.morphe.patcher.patch.intOption
@@ -10,8 +10,8 @@ import org.w3c.dom.Element
 val changeVersionCodePatch =
     resourcePatch(
         name = "Surum kodunu degistir",
-        description = "Changes the version code of the app. This will turn off app store updates " +
-                "and allows downgrading an existing app install to an older app version.",
+        description = "Uygulamanin surum kodunu degistirir. Bu, uygulama magazasi guncellemelerini kapatir " +
+                "ve mevcut yuklemeyi daha eski bir surume dusurmeye izin verir.",
         default = true,
     ) {
         val versionCode by intOption(
@@ -19,13 +19,12 @@ val changeVersionCodePatch =
             default = Int.MAX_VALUE,
             values =
                 mapOf(
-                    "Lowest" to 1,
-                    "Highest" to Int.MAX_VALUE,
+                    "En Dusuk" to 1,
+                    "En Yuksek" to Int.MAX_VALUE,
                 ),
-            title = "Version code",
+            title = "Surum kodu",
             description =
-                "The version code to use. Using the highest value turns off app store " +
-                    "updates and allows downgrading an existing app install to an older app version.",
+                "Kullanilacak surum kodu. En yuksek deger magazadan otomatik guncellemeleri engeller.",
             required = true,
         ) { versionCode -> versionCode!! >= 1 }
 

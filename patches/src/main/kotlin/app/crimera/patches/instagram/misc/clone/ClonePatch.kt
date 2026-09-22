@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -30,7 +30,7 @@ private const val ORIGINAL_PACKAGE_NAME = "com.instagram.android"
 @Suppress("unused")
 val clonePatch =
     resourcePatch(
-        name = "Clone",
+        name = "Klonla (Ikinci Instagram)",
         description =
             "Changes the package name and the app name. " +
                 "This allows you to install the patched app alongside the original Instagram app.\n" +
@@ -41,9 +41,9 @@ val clonePatch =
 
         val packageName by stringOption(
             key = "packageName",
-            default = "com.instagram.android.piko",
-            title = "Package name",
-            description = "A new package name for the patched app.",
+            default = "com.instagram.android.pnecli",
+            title = "Paket adi",
+            description = "Yamalanmis uygulama icin yeni paket adi.",
             required = true,
         ) {
             it!!.matches(Regex("^[a-z]\\w*(\\.[a-z]\\w*)+$"))
@@ -51,9 +51,9 @@ val clonePatch =
 
         val appName by stringOption(
             key = "appName",
-            default = "Piko Instagram",
-            title = "App name",
-            description = "A new app name (label). Entering \"Instagram\" will skip changing the app name.",
+            default = "pne cli Instagram",
+            title = "Uygulama adi",
+            description = "Yeni uygulama adi. \"Instagram\" girerseniz isim degismez.",
             required = true,
         )
 

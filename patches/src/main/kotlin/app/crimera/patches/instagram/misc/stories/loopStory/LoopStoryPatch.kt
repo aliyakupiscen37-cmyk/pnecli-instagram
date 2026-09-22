@@ -36,7 +36,7 @@ internal object StoryProgressCompletedFingerprint : Fingerprint(
 val loopStoryPatch =
     bytecodePatch(
         name = "Hikayeyi donguye al",
-        description = "Replay the current story when it ends",
+        description = "Hikaye bittiginde bastan tekrar oynatir.",
     ) {
         dependsOn(settingsPatch)
 

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -25,7 +25,7 @@ object SnoozeExpLockoutManagerFlagFingerprint : Fingerprint(
 @Suppress("unused")
 val removeBuildExpiredPopupPatch =
     bytecodePatch(
-        name = "Remove build expired popup",
+        name = "Surum suresi doldu uyarisini kaldir",
         description = "Removes the popup that appears after a while, when the app version ages.",
     ) {
         dependsOn(settingsPatch)

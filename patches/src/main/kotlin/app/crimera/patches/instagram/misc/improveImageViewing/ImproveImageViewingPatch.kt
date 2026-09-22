@@ -21,7 +21,7 @@ import com.android.tools.smali.dexlib2.Opcode
 val improveImageViewingPatch =
     bytecodePatch(
         name = "Gorsel kalitesini artir",
-        description = "Fetches max resolution images from server.",
+        description = "Sunucudan en yuksek cozunurluklu gorselleri yukler.",
         default = true,
     ) {
         compatibleWith(COMPATIBILITY_INSTAGRAM)

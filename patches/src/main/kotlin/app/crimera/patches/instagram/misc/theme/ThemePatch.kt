@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -20,9 +20,8 @@ val themePatch =
     resourcePatch(
         name = "Tema",
         description =
-            "Adds Material You and AMOLED controls to Piko settings " +
-                "on Android 12 and later. On Android 8–11, it applies a fixed " +
-                "Material You-style theme or an optional AMOLED theme.",
+            "Android 12 ve uzerinde pne cli ayarlarina Material You ve AMOLED kontrolleri ekler. " +
+                "Android 8–11 surumlerinde sabit Material You stili veya istege bagli AMOLED tema uygular.",
         default = true,
     ) {
         compatibleWith(COMPATIBILITY_INSTAGRAM)
@@ -30,11 +29,10 @@ val themePatch =
         val amoled by booleanOption(
             key = "amoled",
             default = false,
-            title = "Pure-black AMOLED theme for Android 8–11",
+            title = "Android 8–11 icin saf siyah AMOLED tema",
             description =
-                "Use a fixed pure-black AMOLED theme instead of the fixed Material " +
-                    "You-style theme on Android 8–11. On Android 12 and later, use " +
-                    "the AMOLED control in Piko settings.",
+                "Android 8–11 icin Material You yerine saf siyah AMOLED tema kullanir. " +
+                    "Android 12 ve sonrasi icin pne cli ayarlarindaki AMOLED secenegini kullanin.",
         )
 
         var bytecodePatchContext: BytecodePatchContext? = null

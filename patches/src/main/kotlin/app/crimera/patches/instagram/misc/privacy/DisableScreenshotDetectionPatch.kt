@@ -41,7 +41,7 @@ internal object ChatRecyclerViewRelatedFingerprint : Fingerprint(
 val disableScreenshotDetection =
     bytecodePatch(
         name = "Ekran goruntusu tespitini devre disi birak",
-        description = "Disables screenshots detection in DM",
+        description = "DM mesajlarinda ekran goruntusu alma bildirimini devre disi birakir.",
     ) {
         dependsOn(settingsPatch)
         compatibleWith(COMPATIBILITY_INSTAGRAM)

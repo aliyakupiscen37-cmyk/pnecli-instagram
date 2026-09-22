@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2025 Morphe.
  * https://github.com/MorpheApp/morphe-patches
  *
@@ -149,7 +149,7 @@ internal fun addAppResources(appId: String) {
 }
 
 internal val addResourcesPatch = resourcePatch(
-    description = "Add resources such as strings or arrays to the app."
+    description = "Uygulamaya Turkce metin ve kaynak dosyalari ekler."
 ) {
 
     // Includes the app and XML element type so resources from different bundles do not collide.

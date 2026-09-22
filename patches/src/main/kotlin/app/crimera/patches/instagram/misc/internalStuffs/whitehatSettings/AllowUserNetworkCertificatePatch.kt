@@ -24,7 +24,7 @@ internal object AllowUserCertificateCheckFingerprint : Fingerprint(
 val allowUserNetworkCertificatePatch =
     bytecodePatch(
         name = "Kullanici ag sertifikasina izin ver",
-        description = "Allows user network certificate for whitehat testing",
+        description = "Guvenlik testleri icin kullanici ag sertifikalarina izin verir.",
         default = true,
     ) {
         compatibleWith(COMPATIBILITY_INSTAGRAM)

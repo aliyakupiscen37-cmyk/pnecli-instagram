@@ -3,7 +3,7 @@ group = "crimera"
 patches {
     about {
         name = "pne cli"
-        description = "Instagram için Türkçe Morphe yamaları"
+        description = "Instagram icin Turkce Morphe yamalari"
         source = "https://github.com/aliyakupiscen37-cmyk/pnecli-instagram"
         author = "pne cli"
         contact = "na"

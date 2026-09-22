@@ -16,7 +16,7 @@ import app.morphe.patcher.patch.bytecodePatch
 val profileMoreOptionsPatch =
     bytecodePatch(
         name = "Profilde ek secenekler",
-        description = "Adds a new button to handle user related data like copy handle, download profile picture etc",
+        description = "Kullanici profilinde kullanici adi kopyalama, profil resmi indirme gibi ek secenekler sunar.",
     ) {
         dependsOn(settingsPatch, userProfileButtonPatch, userProfileActionBarButtonPatch)
 

@@ -20,7 +20,7 @@ import app.morphe.patcher.patch.bytecodePatch
 val moreOptionsOnPostPatch =
     bytecodePatch(
         name = "Gonderilerde ek secenekler",
-        description = "Adds an overflow menu button to get more options on post/reels, like copy description, copy username etc",
+        description = "Gonderi ve Reels videolarina aciklama ve kullanici adi kopyalama gibi ek secenekler ekler.",
         default = true,
     ) {
         compatibleWith(COMPATIBILITY_INSTAGRAM)

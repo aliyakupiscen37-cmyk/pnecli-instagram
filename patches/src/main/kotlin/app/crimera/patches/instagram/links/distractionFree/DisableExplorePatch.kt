@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -15,7 +15,7 @@ import app.morphe.patcher.patch.bytecodePatch
 @Suppress("unused")
 val disableExplorePatch =
     bytecodePatch(
-        name = "Disable explore",
+        name = "Kesfeti devre disi birak",
     ) {
         dependsOn(settingsPatch, interceptUriPatch)
         compatibleWith(COMPATIBILITY_INSTAGRAM)

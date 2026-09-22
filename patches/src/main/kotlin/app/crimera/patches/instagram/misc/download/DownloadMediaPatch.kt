@@ -33,7 +33,7 @@ import app.morphe.patcher.util.smali.ExternalLabel
 val downloadMediaPatch =
     bytecodePatch(
         name = "Medya indir",
-        description = "Adds ability to download posts, reels, stories and highlights",
+        description = "Gonderileri, Reels, hikayeleri ve one cikanlari indirme ozelligi ekler.",
     ) {
         dependsOn(
             settingsPatch,

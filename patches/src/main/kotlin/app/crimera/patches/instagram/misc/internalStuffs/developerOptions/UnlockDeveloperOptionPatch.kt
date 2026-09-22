@@ -27,7 +27,7 @@ import com.android.tools.smali.dexlib2.Opcode
 val unlockDeveloperOptionPatch =
     bytecodePatch(
         name = "Gelistirici seceneklerini ac",
-        description = "Unlocks developer option by long pressing home icon",
+        description = "Ana sayfa simgesine uzun basarak gelistirici seceneklerini acar.",
         default = true,
     ) {
         compatibleWith(COMPATIBILITY_INSTAGRAM)

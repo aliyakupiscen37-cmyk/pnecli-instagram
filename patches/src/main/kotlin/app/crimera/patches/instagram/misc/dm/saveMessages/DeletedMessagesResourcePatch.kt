@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -16,7 +16,7 @@ import org.w3c.dom.Element
  */
 val deletedMessagesResourcePatch =
     resourcePatch(
-        description = "Adds the deleted-messages viewer activity to the Android manifest.",
+        description = "Silinen mesajlar goruntuleyicisini Android manifestine ekler.",
     ) {
         finalize {
             document("AndroidManifest.xml").use { document ->

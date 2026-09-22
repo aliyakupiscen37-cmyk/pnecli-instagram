@@ -20,7 +20,7 @@ import app.morphe.patcher.patch.bytecodePatch
 val viewStoryMentionsPatch =
     bytecodePatch(
         name = "Hikaye bahsetmelerini goruntule",
-        description = "Add option to view visible and hidden story mentions.",
+        description = "Gorunur ve gizli hikaye bahsetmelerini gorme secenegi ekler.",
     ) {
         dependsOn(settingsPatch, handleStoryButtonPatch, userDataEntity, mediaDataEntity, instagramDialogBoxEntity, videoDataEntity)
 

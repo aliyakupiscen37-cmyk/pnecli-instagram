@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -11,7 +11,7 @@ import org.w3c.dom.Element
 
 val addSettingsActivityPatch =
     resourcePatch(
-        description = "Adds SettingsActivity to the Android manifest.",
+        description = "pne cli ayarlar ekranini Android manifestine ekler.",
     ) {
         finalize {
             document("AndroidManifest.xml").use { document ->

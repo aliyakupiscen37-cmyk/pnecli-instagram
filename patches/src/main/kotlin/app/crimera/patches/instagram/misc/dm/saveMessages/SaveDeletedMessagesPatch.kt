@@ -34,7 +34,7 @@ private const val DIRECT_THREAD_KEY = "Lcom/instagram/model/direct/DirectThreadK
 val saveDeletedMessagesPatch =
     bytecodePatch(
         name = "Silinen mesajlari kaydet",
-        description = "Captures incoming DMs locally as they arrive from the server and marks them when the sender deletes them.",
+        description = "Gelen DM mesajlarini yerel olarak kaydeder ve gonderen sildiginde silindi olarak isaretler.",
         default = true,
     ) {
         // userDataEntity is deliberately not a dependency: it only backs Hook 6's username

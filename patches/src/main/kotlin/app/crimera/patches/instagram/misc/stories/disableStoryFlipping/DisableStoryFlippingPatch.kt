@@ -27,7 +27,7 @@ internal object StoryFlippingMethodFingerprint : Fingerprint(
 val disableStoryFlippingPatch =
     bytecodePatch(
         name = "Hikaye gecisini kapat",
-        description = "Disable automatic flipping/moving to next story",
+        description = "Sonraki hikayeye otomatik gecisi kapatir.",
     ) {
         dependsOn(settingsPatch)
 

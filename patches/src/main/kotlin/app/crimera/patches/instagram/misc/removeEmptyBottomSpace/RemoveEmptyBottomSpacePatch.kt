@@ -30,7 +30,7 @@ internal object NavigationBarAdjusterFingerprint : Fingerprint(
 val removeEmptyBottomSpacePatch =
     bytecodePatch(
         name = "Alttaki bos alani kaldir",
-        description = "Removes empty space below bottom navigation bar",
+        description = "Alt gezinti cubugunun altindaki bos alani kaldirir.",
     ) {
         dependsOn(settingsPatch)
         compatibleWith(COMPATIBILITY_INSTAGRAM)

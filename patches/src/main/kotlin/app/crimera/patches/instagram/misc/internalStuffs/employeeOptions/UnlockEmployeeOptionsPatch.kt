@@ -18,7 +18,7 @@ import app.morphe.patcher.patch.bytecodePatch
 val unlockEmployeeOptionsPatch =
     bytecodePatch(
         name = "Calisan seceneklerini ac",
-        description = "Unlocks all options using by employee for debugging",
+        description = "Calisanlara ozel tum test ve hata ayiklama seceneklerini acar.",
         default = true,
     ) {
         compatibleWith(COMPATIBILITY_INSTAGRAM)

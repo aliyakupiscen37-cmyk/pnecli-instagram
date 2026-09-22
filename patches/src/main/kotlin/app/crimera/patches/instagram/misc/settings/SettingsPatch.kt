@@ -36,7 +36,7 @@ import com.android.tools.smali.dexlib2.Opcode
 val settingsPatch =
     bytecodePatch(
         name = "Ayarlari ekle",
-        description = "Adds settings to control preferences are patching",
+        description = "pne cli yama ayarlarini Instagram ayarlarina ekler.",
         default = true,
     ) {
         compatibleWith(COMPATIBILITY_INSTAGRAM)

@@ -37,7 +37,7 @@ private object IgBloksFullScreenOpenFingerprint : Fingerprint(
 val disableOnboardingPermissionPromptsPatch =
     bytecodePatch(
         name = "Kurulum izin istemlerini devre disi birak",
-        description = "Prevents contacts and location permission onboarding prompts from appearing.",
+        description = "Rehber ve konum izni istemlerinin acilista gorunmesini engeller.",
         default = true,
     ) {
         dependsOn(settingsPatch, interceptUriPatch)

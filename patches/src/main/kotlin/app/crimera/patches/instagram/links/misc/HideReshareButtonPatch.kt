@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -44,7 +44,7 @@ internal object LiveTreeGetOptionalBooleanFingerprint : Fingerprint(
 @Suppress("unused")
 val hideReshareButtonPatch =
     bytecodePatch(
-        name = "Hide reshare button",
+        name = "Yeniden paylas butonunu gizle",
         description = "Hides the reshare button from both posts and reels.",
     ) {
         dependsOn(settingsPatch, resourceMappingPatch)
