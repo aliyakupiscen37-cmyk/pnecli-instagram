@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -35,7 +35,7 @@ import com.android.tools.smali.dexlib2.Opcode
 @Suppress("unused")
 val settingsPatch =
     bytecodePatch(
-        name = "Add settings",
+        name = "Ayarlari ekle",
         description = "Adds settings to control preferences are patching",
         default = true,
     ) {

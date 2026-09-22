@@ -1,4 +1,4 @@
-package app.revanced.patches.all.misc.versioncode
+﻿package app.revanced.patches.all.misc.versioncode
 
 import app.crimera.patches.instagram.utils.Constants.COMPATIBILITY_INSTAGRAM
 import app.morphe.patcher.patch.intOption
@@ -9,7 +9,7 @@ import org.w3c.dom.Element
 @Suppress("unused")
 val changeVersionCodePatch =
     resourcePatch(
-        name = "Change version code",
+        name = "Surum kodunu degistir",
         description = "Changes the version code of the app. This will turn off app store updates " +
                 "and allows downgrading an existing app install to an older app version.",
         default = true,

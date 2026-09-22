@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -31,7 +31,7 @@ object NotesTrayBuilderConstructorFingerprint : Fingerprint(
 @Suppress("unused")
 val hideNotesTrayPatch =
     bytecodePatch(
-        name = "Hide notes tray",
+        name = "Notlar tepsisini gizle",
         description = "Hides notes tray in DM section",
     ) {
         dependsOn(settingsPatch, resourceMappingPatch)

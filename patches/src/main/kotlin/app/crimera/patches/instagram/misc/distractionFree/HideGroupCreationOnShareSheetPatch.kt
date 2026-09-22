@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -29,7 +29,7 @@ internal object ShareSheetItemsBinderFingerprint : Fingerprint(
 @Suppress("unused")
 val hideGroupCreationOnShareSheetPatch =
     bytecodePatch(
-        name = "Hide group creation button on sharesheet",
+        name = "Paylasim menusundeki grup olusturma dugmesini gizle",
         default = true,
     ) {
         compatibleWith(COMPATIBILITY_INSTAGRAM)

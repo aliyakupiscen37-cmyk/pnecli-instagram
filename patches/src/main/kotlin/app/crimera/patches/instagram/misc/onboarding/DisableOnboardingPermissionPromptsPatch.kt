@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -36,7 +36,7 @@ private object IgBloksFullScreenOpenFingerprint : Fingerprint(
 @Suppress("unused")
 val disableOnboardingPermissionPromptsPatch =
     bytecodePatch(
-        name = "Disable onboarding permission prompts",
+        name = "Kurulum izin istemlerini devre disi birak",
         description = "Prevents contacts and location permission onboarding prompts from appearing.",
         default = true,
     ) {

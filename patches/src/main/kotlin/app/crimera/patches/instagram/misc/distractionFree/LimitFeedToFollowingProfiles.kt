@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -38,7 +38,7 @@ private object MainFeedHeaderMapFinderFingerprint : Fingerprint(
 @Suppress("unused")
 val limitFeedToFollowingProfiles =
     bytecodePatch(
-        name = "Limit feed to following profiles",
+        name = "Akisi takip edilen profillerle sinirla",
         description = "Filters the home feed to display only content from profiles you follow.",
     ) {
         dependsOn(settingsPatch)

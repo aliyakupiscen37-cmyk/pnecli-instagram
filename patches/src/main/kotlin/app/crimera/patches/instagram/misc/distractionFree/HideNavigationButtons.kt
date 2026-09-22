@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -53,7 +53,7 @@ private const val EXTENSION_CLASS_DESCRIPTOR =
 @Suppress("unused")
 val hideNavigationButtonsPatch =
     bytecodePatch(
-        name = "Hide navigation buttons",
+        name = "Gezinme butonlarini gizle",
         description = "Hides navigation bar buttons, such as the Reels and Create button.",
     ) {
         compatibleWith(COMPATIBILITY_INSTAGRAM)

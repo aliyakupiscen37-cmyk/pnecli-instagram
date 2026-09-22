@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -33,7 +33,7 @@ internal object BindInternalBadgeFingerprint : Fingerprint(
 @Suppress("unused")
 val friendshipStatusIndicatorPatch =
     bytecodePatch(
-        name = "Friendship status indicator",
+        name = "Arkadaslik durumu gostergesi",
         description =
             "Adds a follows you back status label on the profile page and" +
                 "shows a detailed friendship status breakdown on click",

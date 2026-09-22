@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -27,7 +27,7 @@ import com.android.tools.smali.dexlib2.iface.instruction.formats.Instruction31i
 @Suppress("unused")
 val saveMediaCommentPatch =
     bytecodePatch(
-        name = "Save media comment",
+        name = "Yorum medyasini kaydet",
         description = "Adds a button to save media comments on posts and reels.",
         default = true,
     ) {

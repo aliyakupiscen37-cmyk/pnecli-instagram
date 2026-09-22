@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -35,7 +35,7 @@ internal object EphemeralMediaJsonParserFingerprint : Fingerprint(
 @Suppress("unused")
 val makeEphemeralPermanentPatch =
     bytecodePatch(
-        name = "Make ephemeral media permanent",
+        name = "Kaybolan medyalari kalici yap",
         description = "Changes unexpired view once, view twice media to permanent view.",
         default = true,
     ) {

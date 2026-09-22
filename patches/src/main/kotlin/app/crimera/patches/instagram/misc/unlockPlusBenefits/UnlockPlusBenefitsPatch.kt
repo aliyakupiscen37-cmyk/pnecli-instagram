@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -25,7 +25,7 @@ internal object ActiveBenefitCheckerFingerprint : Fingerprint(
 @Suppress("unused")
 val unlockPlusBenefitsPatch =
     bytecodePatch(
-        name = "Unlock Plus benefits",
+        name = "Plus abonelik avantajlarini ac",
         description = "Unlocks 'Plus' subscription benefits that are checked locally. USE IT AT YOUR OWN RISK",
         default = true,
     ) {

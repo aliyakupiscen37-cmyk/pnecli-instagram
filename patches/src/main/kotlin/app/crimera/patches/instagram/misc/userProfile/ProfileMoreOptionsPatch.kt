@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -15,7 +15,7 @@ import app.morphe.patcher.patch.bytecodePatch
 @Suppress("unused")
 val profileMoreOptionsPatch =
     bytecodePatch(
-        name = "More options on profile",
+        name = "Profilde ek secenekler",
         description = "Adds a new button to handle user related data like copy handle, download profile picture etc",
     ) {
         dependsOn(settingsPatch, userProfileButtonPatch, userProfileActionBarButtonPatch)

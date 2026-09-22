@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -26,7 +26,7 @@ import com.android.tools.smali.dexlib2.Opcode
 @Suppress("unused")
 val recommendedFlagsPatch =
     bytecodePatch(
-        name = "Recommended flags",
+        name = "Onerilen bayraklar",
         description = "Developer flags suggested by the community",
         default = true,
     ) {

@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -18,7 +18,7 @@ import app.morphe.patches.all.misc.resources.resourceMappingPatch
 @Suppress("unused")
 val themePatch =
     resourcePatch(
-        name = "Theme",
+        name = "Tema",
         description =
             "Adds Material You and AMOLED controls to Piko settings " +
                 "on Android 12 and later. On Android 8–11, it applies a fixed " +

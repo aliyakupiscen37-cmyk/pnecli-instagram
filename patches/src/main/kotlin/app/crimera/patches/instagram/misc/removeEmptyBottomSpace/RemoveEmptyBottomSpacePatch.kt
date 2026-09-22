@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -29,7 +29,7 @@ internal object NavigationBarAdjusterFingerprint : Fingerprint(
 @Suppress("unused")
 val removeEmptyBottomSpacePatch =
     bytecodePatch(
-        name = "Remove empty bottom space",
+        name = "Alttaki bos alani kaldir",
         description = "Removes empty space below bottom navigation bar",
     ) {
         dependsOn(settingsPatch)

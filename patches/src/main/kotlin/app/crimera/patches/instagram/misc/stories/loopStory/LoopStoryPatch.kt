@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -35,7 +35,7 @@ internal object StoryProgressCompletedFingerprint : Fingerprint(
 @Suppress("unused")
 val loopStoryPatch =
     bytecodePatch(
-        name = "Loop story",
+        name = "Hikayeyi donguye al",
         description = "Replay the current story when it ends",
     ) {
         dependsOn(settingsPatch)

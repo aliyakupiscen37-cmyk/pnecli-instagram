@@ -3,11 +3,11 @@ group = "crimera"
 patches {
     about {
         name = "pne cli"
-        description = "Morphe patches focused on Instagram"
-        source = "git@github.com:crimera/piko.git"
-        author = "crimera"
+        description = "Instagram için Türkçe Morphe yamaları"
+        source = "https://github.com/aliyakupiscen37-cmyk/pnecli-instagram"
+        author = "pne cli"
         contact = "na"
-        website = "https://github.com/crimera/piko"
+        website = "https://github.com/aliyakupiscen37-cmyk/pnecli-instagram"
         license = "GNU General Public License v3.0"
     }
 }

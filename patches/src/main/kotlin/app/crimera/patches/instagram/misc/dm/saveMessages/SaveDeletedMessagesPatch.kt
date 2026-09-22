@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -33,7 +33,7 @@ private const val DIRECT_THREAD_KEY = "Lcom/instagram/model/direct/DirectThreadK
 @Suppress("unused")
 val saveDeletedMessagesPatch =
     bytecodePatch(
-        name = "Save deleted messages",
+        name = "Silinen mesajlari kaydet",
         description = "Captures incoming DMs locally as they arrive from the server and marks them when the sender deletes them.",
         default = true,
     ) {

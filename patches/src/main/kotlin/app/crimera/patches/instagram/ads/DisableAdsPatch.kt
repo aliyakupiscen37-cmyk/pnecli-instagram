@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -23,7 +23,7 @@ internal object DisableAdsFingerprint : Fingerprint(
 @Suppress("unused")
 val disableAdsPatch =
     bytecodePatch(
-        name = "Disable ads",
+        name = "Reklamlari devre disi birak",
         default = true,
     ) {
         compatibleWith(COMPATIBILITY_INSTAGRAM)

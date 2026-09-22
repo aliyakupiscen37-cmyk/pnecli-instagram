@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2026 piko <https://github.com/crimera/piko>
  *
  * See the included NOTICE file for GPLv3 §7(b) terms that apply to this code.
@@ -26,7 +26,7 @@ import com.android.tools.smali.dexlib2.Opcode
 @Suppress("unused")
 val unlockDeveloperOptionPatch =
     bytecodePatch(
-        name = "Unlock developer options",
+        name = "Gelistirici seceneklerini ac",
         description = "Unlocks developer option by long pressing home icon",
         default = true,
     ) {
